@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+ 	<select id="loginCheck" resultType="String">
+		SELECT user_name AS userName FROM TBL_MEMBER
+		WHERE user_id = #{userId}
+		AND user_pw = #{userPw}
+
+	</select>
+
+	<select id="idCheck" resultType="int">
+		SELECT count(*) FROM TBL_MEMBER
+		WHERE user_id = #{id}
+
+	</select> 
+
+<!-- 	<select id="viewMember" resultType="MVO">
+
+		SELECT
+			user_name AS userName,
+			user_id AS userId,
+			user_email AS userEmail,
+			user_regdate AS userRegdate
+		FROM TBL_MEMBER
+		WHERE user_id = #{userId}
+		AND user_pw = #{userPw}
+
+	</select> -->
+	
+	<insert id="insert" parameterType="com.myspring.dsgproj.dto.MemberVO">
+		INSERT INTO TBL_MEMBER(
+			USER_ID,
+			USER_PW,
+			USER_NAME,
+			USER_EMAIL,
+			USER_REGDATE,
+			USER_UPDATEDATE 
+		) 
+		VALUES ( 
+		 #{userId},
+		 #{userPw},
+		 #{userName},
+		 #{userEmail},
+		  SYSDATE,
+		  SYSDATE	 
+		)
+	</insert>
+
+</mapper>

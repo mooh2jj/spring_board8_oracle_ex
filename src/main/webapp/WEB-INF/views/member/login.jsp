@@ -40,7 +40,7 @@
 
 </head>
 <body>
-<%@ include file="/WEB-INF/views/menu.jsp" %>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 	<h2>로그인</h2>
 	<form name="form1" method="post">
 		<table border="1" witdh="400px">
@@ -69,5 +69,6 @@
 			</tr>
 		</table>
 	</form>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>	
 </body>
 </html>

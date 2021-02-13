@@ -29,8 +29,18 @@
 	/* align:"center"; *//* 적용안됨 */
 }
 
-
-
 h1{
 	font-size: 1.8em;
 }
+
+.id-msg1{
+	color:blue;
+	display:none;
+}
+
+.id-msg2{
+	color:red;
+	display:none;
+}
+
+

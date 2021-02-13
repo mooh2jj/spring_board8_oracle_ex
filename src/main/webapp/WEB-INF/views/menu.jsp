@@ -20,7 +20,7 @@
 			<a href="${contextPath}/member/login.do">로그인</a>
 		</c:when>
 		<c:otherwise>
-			${sessionScope.userName}님이 로그인중입니다.
+			<span style ="font-size:1.2em; font-weight: bold;  color: green;">${sessionScope.userName}님 환영합니다!</span>
 
 			<a href="${contextPath}/member/logout.do">로그아웃</a>
 		</c:otherwise>

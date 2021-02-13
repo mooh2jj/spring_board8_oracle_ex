@@ -11,16 +11,16 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/common.css"  type="text/css">
 </head>
 <body>
-
+<%@ include file="/WEB-INF/views/menu.jsp" %>
 <header class="header_class1">
 	<h3>header</h3>
-	<a href="${contextPath}/board/list.do" onclick="a()">글목록</a>
+<%-- 	<a href="${contextPath}/board/list.do" onclick="a()">글목록</a> --%>
 	<a href="${contextPath}/board/write.do">글등록하기</a>
-	<a href="${contextPath}/member/join.do">회원가입</a>
+	<%-- <a href="${contextPath}/member/join.do">회원가입</a> --%>
 	
 <%-- 	<c:if test="${msg == 'success'}">
 		<h2>${sessionScope.userName}님 환영합니다.</h2>
-	</c:if> --%>
+	</c:if>  --%>
 <%-- 	
 	<c:choose>
 		<c:when test="${sessionScope.auth == null}">

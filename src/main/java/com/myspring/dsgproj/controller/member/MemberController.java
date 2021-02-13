@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.dsgproj.dto.MemberVO;
+
 //import com.myspring.dsgproj.service.member.MemberService;
 //import com.myspring.dsgproj.vo.member.MemberVO;
 
@@ -52,42 +54,66 @@ public class MemberController {
 		// 1, 0
 		String result = String.valueOf(resultCount);
 		
-		System.out.println("result :"+ result);
+		System.out.println("idcheck- result :"+ result);
 		
 		return result;
 	}
 	
 	
-//	@RequestMapping("loginCheck.do")
-//	public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
-//		
+	// 회원가입 컨트롤러
+	@RequestMapping(value = "/reg", method = RequestMethod.POST)
+	public String userRegPass(MemberVO userVO) {
+//		// 회원가입 메서드
+//		reg_service.userReg_service(userVO);
+//		// 인증 메일 보내기 메서드
+//		mailsender.mailSendWithUserKey(userVO.getUserEmail(), userVO.getUserId());
+		System.out.println("vo:"+ userVO);
+		
+		sqlSession.insert("member.insert", userVO);
+		
+		return "redirect:login.do";
+	}
+
+	
+	@RequestMapping("loginCheck.do")
+	public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+		
 //		boolean result = memberService.loginCheck(vo, session);
-//		
-//		ModelAndView mav = new ModelAndView();
-//		
-//		if(result == true) {	// 
-//			mav.setViewName("home");
-//			mav.addObject("msg", "success");
-//		}else {					// 
-//			mav.setViewName("member/login");	// login.jsp
-//			mav.addObject("msg", "failure");	// 
-//		}	
-//		
-//		return mav;
-//	}
-//	
-//	@RequestMapping("logout.do")
-//	public ModelAndView logout(HttpSession session) throws Exception {
-//		
-//		memberService.logout(session);
-//		
-//		ModelAndView mav = new ModelAndView();
-//		
-//		mav.setViewName("member/login");
-//		mav.addObject("msg", "logout");
-//		
-//		return mav;
-//	}
+//		boolean result = sqlSession.selectOne("member.loginCheck", vo);
+		
+		String userName = sqlSession.selectOne("member.loginCheck", vo);
+		// tptus
+		System.out.println("userName: "+userName);
+		
+		boolean result = (userName == null) ? false : true;
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(result == true) {	// 
+			session.setAttribute("userId", vo.getUserId());
+			session.setAttribute("userName", vo.getUserName());
+			mav.setViewName("home");
+			mav.addObject("msg", "success");
+		}else {					// 
+			mav.setViewName("member/login");	// login.jsp
+			mav.addObject("msg", "failure");	// 
+		}	
+		
+		return mav;
+	}
+	
+	@RequestMapping("logout.do")
+	public ModelAndView logout(HttpSession session) throws Exception {
+		
+		session.invalidate();	// 세션 객체 정보 사라짐 x -> 세션의 기능을 중단시키고 무효화 시키는것
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("member/login");
+		mav.addObject("msg", "logout");
+		
+		return mav;
+	}
 //	
 //	
 //	@RequestMapping(value = "write.do", method = RequestMethod.POST)

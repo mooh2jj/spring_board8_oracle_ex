@@ -13,7 +13,11 @@
 <script type="text/javascript">
 
 $(function(){
-	$("#loginId").focusout(function() {
+	
+	$(".id-msg1").hide();
+	$(".id-msg2").hide(); 
+	
+	$("#loginId").blur(function() {
 		/* ajax idcheck */
 		$.ajax({
 			url: "${contextPath}/member/idcheck.do",/*idcheck.do */
@@ -123,7 +127,7 @@ $(function(){
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-	<form name="form" onsubmit="return checkForm();" action="${contextPath}/member/write.do" method="post">
+	<form name="form" onsubmit="return checkForm();" action="${contextPath}/member/reg" method="post">
 		<!-- action="${contextPath}/member/doWrite" -->
 		<table class="table1_class" border="1" width="700px" >	<!-- border="1" width="700px" -->
 
@@ -136,14 +140,14 @@ $(function(){
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input maxlength="10" autocomplete="off" autofocus="autofocus" placeholder="로그인 아이디를 입력해주세요." type="text" id="loginId" name="userId" required="required">
-					<span class="id-msg1">멋진 아이디!</span>
-					<span class="id-msg2">사용중이거나 휴먼상태입니다!</span>	
+					<input maxlength="10" autocomplete="off" autofocus="autofocus" placeholder="로그인 아이디를 입력해주세요." type="text" id="loginId" name="userId">
+					<span class="id-msg1" style="color:blue; font-size:0.8rem;">멋진 아이디! 사용가능한 아이디입니다!</span>
+					<span class="id-msg2" style="color:red; font-size:0.8rem;">사용중이거나 휴먼상태인 아이디입니다!</span>	
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input placeholder="로그인  패스워드를 입력해주세요." type="password" name="userPw" required="required"></td>
+				<td><input placeholder="로그인  패스워드를 입력해주세요." type="password" name="userPw" ></td>
 			</tr>
 			<!-- <tr>
 				<th>비밀번호 확인</th>
@@ -163,7 +167,7 @@ $(function(){
 			</tr>
 			<tr>
 				<th>회원가입</th>
-				<td><input type="submit" value="가입" id="register" /> <input onclick="history.back();" type="button" value="취소"></td>
+				<td><input type="submit" value="가입" id="register" /> <input type="reset"  value="취소"></td>
 			</tr>
 			</tbody>
 		</table>
