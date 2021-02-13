@@ -11,7 +11,7 @@ public class MemberVO {
 	private String userEmail;
 	private Date userRegdate;		// sql.Date!!
 	private Date userUpdatedate;	
-	
+	private String userKey;
 	
 	// getter&setter
 	public String getUserId() {
@@ -22,6 +22,12 @@ public class MemberVO {
 	}
 	public String getUserPw() {
 		return userPw;
+	}
+	public String getUserKey() {
+		return userKey;
+	}
+	public void setUserKey(String userKey) {
+		this.userKey = userKey;
 	}
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
@@ -54,7 +60,8 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail="
-				+ userEmail + ", userRegdate=" + userRegdate + ", userUpdatedate=" + userUpdatedate + "]";
+				+ userEmail + ", userRegdate=" + userRegdate + ", userUpdatedate=" + userUpdatedate + ", userKey="
+				+ userKey + "]";
 	}
 	
 	

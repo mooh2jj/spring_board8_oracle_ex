@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.dsgproj.dto.MemberVO;
+import com.myspring.dsgproj.service.UserMailSendService;
 
 //import com.myspring.dsgproj.service.member.MemberService;
 //import com.myspring.dsgproj.vo.member.MemberVO;
@@ -24,6 +24,9 @@ public class MemberController {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	UserMailSendService mailsender;
 	
 //	@Autowired
 //	MemberService memberService;
@@ -60,18 +63,24 @@ public class MemberController {
 	
 	// 회원가입 컨트롤러
 	@RequestMapping(value = "/reg", method = RequestMethod.POST)
-	public String userRegPass(MemberVO userVO) {
+	public String userRegPass(MemberVO userVO, HttpServletRequest request) {
 //		// 회원가입 메서드
 //		reg_service.userReg_service(userVO);
 //		// 인증 메일 보내기 메서드
-//		mailsender.mailSendWithUserKey(userVO.getUserEmail(), userVO.getUserId());
-		System.out.println("vo:"+ userVO);
-		
+		System.out.println("userVO:"+ userVO);		
 		sqlSession.insert("member.insert", userVO);
+		
+//		mailsender.mailSendWithUserKey(userVO.getUserEmail(), userVO.getUserId(), request);
 		
 		return "redirect:login.do";
 	}
 
+	@RequestMapping(value = "/emailAuth.do", method = RequestMethod.POST)
+	public void emailAuth(MemberVO userVO, HttpServletRequest request) {
+	
+		mailsender.mailSendWithUserKey(userVO.getUserEmail(), userVO.getUserId(), request);
+		
+	}
 	
 	@RequestMapping("loginCheck.do")
 	public String loginCheck(@ModelAttribute MemberVO vo, HttpSession session, Model model) throws Exception {

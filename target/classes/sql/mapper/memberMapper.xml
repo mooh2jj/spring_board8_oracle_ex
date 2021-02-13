@@ -49,5 +49,11 @@
 		  SYSDATE	 
 		)
 	</insert>
+	
+	<update id="getKey" parameterType="Map">
+	update TBL_MEMBER set
+	USER_KEY = #{userKey}
+	where USER_ID = #{userId}
+	</update>
 
 </mapper>

@@ -36,6 +36,7 @@ $(function(){
 			}
 		});
 	});
+
 });
 
 	// 정규 표현식
@@ -121,13 +122,12 @@ $(function(){
 		  return true;
 	}
 	
-
 </script>
 
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-	<form name="form" onsubmit="return checkForm();" action="${contextPath}/member/reg" method="post">
+	<form name="form" id="form" action="${contextPath}/member/reg" method="post">
 		<!-- action="${contextPath}/member/doWrite" -->
 		<table class="table1_class" border="1" width="700px" >	<!-- border="1" width="700px" -->
 
@@ -163,7 +163,7 @@ $(function(){
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td><input type="submit" value="이메일 인증받기(이메일 보내기)"/></td>
+				<td><input id="emailAuth" type="button" value="이메일 인증받기(이메일 보내기)"/></td>
 			</tr>
 			<tr>
 				<th>회원가입</th>
@@ -172,6 +172,20 @@ $(function(){
 			</tbody>
 		</table>
 	</form>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var form = $("#form");
+		
+		$("#emailAuth").on("click", function(e){
+			e.preventDefault();
+			form.attr("action","${contextPath}/member/emailAuth.do");
+			form.attr("method","post");
+			form.submit();
+		});
+	});
+	
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 </html>
