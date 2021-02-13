@@ -39,15 +39,15 @@ public class ReplyController {
 	
 	// 1) Controller 방식 // Rest
 	@RequestMapping("list.do")
-	public ModelAndView list(ModelAndView mav, @RequestParam("bno") int bno) {
+	public String list(Model model, @RequestParam("bno") int bno) {
 		
 		List<ReplyVO> list = sqlSession.selectList("replymapper.listReply", bno);
 		
 		System.out.println("list :"+ list);
-		mav.setViewName("board/replyList");
-		mav.addObject("list", list);
 		
-		return mav;
+		model.addAttribute("list", list);
+		
+		return "board/replyList";
 	}
 	// 2) ajax 방식
 	@RequestMapping("listJson.do")

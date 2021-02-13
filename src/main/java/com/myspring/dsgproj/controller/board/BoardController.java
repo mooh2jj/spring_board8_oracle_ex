@@ -78,8 +78,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/write.do")
-	public String write(Model model) {
-		
+	public String write() {
 		
 		return "board/write";
 	}
